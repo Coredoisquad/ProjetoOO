@@ -1,10 +1,13 @@
 import javax.swing.JOptionPane;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 public class Principal {
 	
 	static Republica[] moradores = new Republica[0];
 
-	public static void main (String[] args) {
+	public static void main (String[] args) throws IOException {
 	
 		//Menu de opcoes
 		Object[] opcoesPossiveis = {"--- Selecione uma opcao ---",
@@ -35,17 +38,25 @@ public class Principal {
 			default:
 				break;
 			}
-		} while (!((String)opcaoSelecionada).equals((String)opcoesPossiveis[6]));
+		} while (!((String)opcaoSelecionada).equals((String)opcoesPossiveis[5]));
 	}
 		
-		private static Republica cadastrarMorador() {
-			
-		float somarend = 0;
+		private static Republica cadastrarMorador() throws IOException {
 		
 		String nomeMorador = JOptionPane.showInputDialog("Informe o nome do Morador:");
 		String emailMorador = JOptionPane.showInputDialog("Informe o email do Morador:");
 		String rendimentoMorador = JOptionPane.showInputDialog("Informe o rendimento do Morador");
 		
+		FileWriter arq = new FileWriter("C:\\Users\\Usuário\\Desktop\\Moradores.txt");
+	    PrintWriter gravarArq = new PrintWriter(arq);
+	    
+	    gravarArq.printf("Nome do morador: %s %n", nomeMorador);
+	    gravarArq.printf("Email do morador: %s %n", emailMorador);
+	    gravarArq.printf("rendimentoMorador: R$ %s %n", rendimentoMorador);
+	    gravarArq.printf("----------------------%n");
+	    
+	    arq.close();
+	    
 		float rendmorador = Float.parseFloat(rendimentoMorador);
 		
 		//Instanciacao do objeto Republica (=Morador)
@@ -70,4 +81,5 @@ public class Principal {
 		return temp[novaQtdeMoradores-1];
 	}
 
+		
 }
